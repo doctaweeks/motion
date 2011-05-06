@@ -7,7 +7,7 @@
  *    See also the file 'COPYING'.
  *
  */
-#ifndef WITHOUT_V4L
+#if (!defined(WITHOUT_V4L)) && (defined(HAVE_LINUX_VIDEODEV_H))
 
 /* Common stuff: */
 #include "rotate.h"     /* already includes motion.h */
@@ -449,4 +449,4 @@ void v4l_set_input(struct context *cnt, struct video_dev *viddev, unsigned char 
         v4l_picture_controls(cnt, viddev);
     }
 }
-#endif /* !WITHOUT_V4L */
+#endif /* HAVE_LINUX_VIDEODEV_H  !WITHOUT_V4L */

@@ -9,7 +9,7 @@
  *
  */
 #include "vloopback_motion.h"
-#ifndef BSD
+#if defined(HAVE_LINUX_VIDEODEV_H) && (!defined(WITHOUT_V4L)) && (!defined(BSD))
 #include <sys/utsname.h>
 #include <dirent.h>
 
@@ -251,4 +251,4 @@ int vid_putpipe (int dev, unsigned char *image, int size)
 {
     return v4l_putpipe(dev, image, size);
 }
-#endif /* !WITHOUT_V4L && !BSD */
+#endif /* !HAVE_LINUX_VIDEODEV_H && !WITHOUT_V4L && !BSD */
