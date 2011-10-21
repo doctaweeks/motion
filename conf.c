@@ -154,6 +154,7 @@ struct config conf_template = {
     despeckle_filter:               NULL,
     area_detect:                    NULL,
     minimum_motion_frames:          1,
+    exif_text:                      NULL,
     pid_file:                       NULL,
     log_file:                       NULL,
     log_level:                      LEVEL_DEFAULT+10,
@@ -894,6 +895,16 @@ config_param config_params[] = {
     print_bool
     },
     {
+    "exif_text",
+    "# Text to include in a JPEG EXIF comment\n"
+    "# May be any text, including conversion specifiers.\n"
+    "# The EXIF timestamp is included independent of this text.",
+    0,
+    CONF_OFFSET(exif_text),
+    copy_string,
+    print_string
+    },
+    {
     "target_dir",
     "\n############################################################\n"
     "# Target Directories and filenames For Images And Films\n"
@@ -1398,6 +1409,14 @@ config_param config_params[] = {
     "# Additional special conversion specifiers are\n"
     "# %n = the number representing the file_type\n"
     "# %f = filename with full path\n"
+    "# Create tables :\n"
+    "##\n"
+    "# Mysql\n"
+    "# CREATE TABLE security (camera int, filename char(80) not null, frame int, file_type int, time_stamp timestamp(14), event_time_stamp timestamp(14));\n"
+    "#\n"
+    "# Postgresql\n"
+    "# CREATE TABLE security (camera int, filename char(80) not null, frame int, file_type int, time_stamp timestamp without time zone, event_time_stamp timestamp without time zone);\n"
+    "#\n"
     "# Default value:\n"
     "# insert into security(camera, filename, frame, file_type, time_stamp, text_event) values('%t', '%f', '%q', '%n', '%Y-%m-%d %T', '%C')",
     0,

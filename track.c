@@ -61,7 +61,7 @@ static unsigned int uvc_center(struct context *cnt, int dev, int xoff, int yoff)
 static unsigned int uvc_move(struct context *cnt, int dev, struct coord *cent,
                                    struct images *imgs, unsigned int manual);
 #endif /* MOTION_V4L2 */
-#endif /* defined(HAVE_LINUX_VIDEODEV_H) && (!defined(WITHOUT_V4L)) */
+#endif /* WITHOUT_V4L */
 
 /* Add a call to your functions here: */
 unsigned int track_center(struct context *cnt, int dev ATTRIBUTE_UNUSED,

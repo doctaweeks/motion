@@ -778,7 +778,7 @@ static int motion_init(struct context *cnt)
     /* create a reference frame */
     alg_update_reference_frame(cnt, RESET_REF_FRAME);
 
-#if defined(HAVE_LINUX_VIDEODEV_H) && !defined(WITHOUT_V4L) && !defined(BSD)
+#if defined(HAVE_LINUX_VIDEODEV_H) && !defined(WITHOUT_V4L) && !defined(BSD)    
     /* open video loopback devices if enabled */
     if (cnt->conf.vidpipe) {
         MOTION_LOG(NTC, TYPE_ALL, NO_ERRNO, "%s: Opening video loopback device for normal pictures");
@@ -825,7 +825,7 @@ static int motion_init(struct context *cnt)
 #endif /* HAVE_SQLITE3 */
 
 #ifdef HAVE_MYSQL
-        if ((!strcmp(cnt->conf.database_type, "mysql")) && (cnt->conf.database_dbname)) {               
+        if ((!strcmp(cnt->conf.database_type, "mysql")) && (cnt->conf.database_dbname)) { 
             // close database to be sure that we are not leaking
             mysql_close(cnt->database);
 
@@ -1050,14 +1050,16 @@ static void motion_cleanup(struct context *cnt)
 
     if (cnt->conf.database_type) {
 #ifdef HAVE_MYSQL
-        if ((!strcmp(cnt->conf.database_type, "mysql")) && (cnt->conf.database_dbname)) {    
-            mysql_close(cnt->database);      
+        if ( (!strcmp(cnt->conf.database_type, "mysql")) && (cnt->conf.database_dbname)) {    
+            mysql_close(cnt->database); 
         }
 #endif /* HAVE_MYSQL */
 
 #ifdef HAVE_PGSQL
-
-#endif /* HAVE_PGSQL */
+        if ((!strcmp(cnt->conf.database_type, "postgresql")) && (cnt->conf.database_dbname)) {
+            PQfinish(cnt->database_pg);
+        }
+#endif /* HAVE_PGSQL */ 
 
 #ifdef HAVE_SQLITE3    
         /* Close the SQLite database */
@@ -3108,7 +3110,7 @@ int myfclose(FILE* fh)
  *
  * Returns: number of bytes written to the string s
  */
-size_t mystrftime(struct context *cnt, char *s, size_t max, const char *userformat,
+size_t mystrftime(const struct context *cnt, char *s, size_t max, const char *userformat,
                   const struct tm *tm, const char *filename, int sqltype)
 {
     char formatstring[PATH_MAX] = "";

@@ -392,6 +392,11 @@ text_event %Y%m%d%H%M%S
 text_double off
 
 
+# Text to include in a JPEG EXIF comment
+# May be any text, including conversion specifiers.
+# The EXIF timestamp is included independent of this text.
+;exif_text %i%J/%K%L
+
 ############################################################
 # Target Directories and filenames For Images And Films
 # For the options snapshot_, picture_, movie_ and timelapse_filename
@@ -649,6 +654,14 @@ quiet on
 # %n = the number representing the file_type
 # %f = filename with full path
 # Default value:
+# Create tables :
+## 
+# Mysql
+# CREATE TABLE security (camera int, filename char(80) not null, frame int, file_type int, time_stamp timestamp(14), event_time_stamp timestamp(14));
+#
+# Postgresql
+# CREATE TABLE security (camera int, filename char(80) not null, frame int, file_type int, time_stamp timestamp without time zone, event_time_stamp timestamp without time zone);
+#
 # insert into security(camera, filename, frame, file_type, time_stamp, text_event) values('%t', '%f', '%q', '%n', '%Y-%m-%d %T', '%C')
 ; sql_query insert into security(camera, filename, frame, file_type, time_stamp, event_time_stamp) values('%t', '%f', '%q', '%n', '%Y-%m-%d %T', '%C')
 

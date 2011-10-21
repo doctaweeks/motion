@@ -777,7 +777,7 @@ static int vid_v4lx_start(struct context *cnt)
         dev->height = height;
 #endif
 
-#if defined(HAVE_LINUX_VIDEODEV_H) && (!defined(WITHOUT_V4L))
+#if defined(HAVE_LINUX_VIDEODEV_H) && (!defined(WITHOUT_V4L))      
         if (!v4l_start(dev, width, height, input, norm, frequency, tuner_number)) {
             close(dev->fd);
             pthread_mutexattr_destroy(&dev->attr);
@@ -788,7 +788,7 @@ static int vid_v4lx_start(struct context *cnt)
             return -1;
         }
 #endif
-        
+
 #ifdef MOTION_V4L2
         dev->v4l2 = 0;
     }
@@ -907,8 +907,7 @@ int vid_next(struct context *cnt, unsigned char *map)
 
         return netcam_next(cnt, map);
     }
-
-#if (!defined(WITHOUT_V4L))
+#ifndef WITHOUT_V4L
     /*
      * We start a new block so we can make declarations without breaking
      * gcc 2.95 or older.
@@ -944,7 +943,7 @@ int vid_next(struct context *cnt, unsigned char *map)
             ret = v4l2_next(cnt, dev, map, width, height);
         } else {
 #endif
-#if defined(HAVE_LINUX_VIDEODEV_H)
+#if defined(HAVE_LINUX_VIDEODEV_H) && (!defined(WITHOUT_V4L))           
             v4l_set_input(cnt, dev, map, width, height, conf);
             ret = v4l_next(dev, map, width, height);
 #endif            

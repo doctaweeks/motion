@@ -103,7 +103,7 @@
 #define CLEAR(x) memset(&(x), 0, sizeof(x))
 
 #if (!defined(HAVE_LINUX_VIDEODEV_H)) || defined(WITHOUT_V4L) || defined(BSD)
- 
+
 #define VIDEO_PALETTE_GREY      1       /* Linear greyscale */
 #define VIDEO_PALETTE_HI240     2       /* High 240 cube (BT848) */
 #define VIDEO_PALETTE_RGB565    3       /* 565 16 bit RGB */
@@ -454,6 +454,6 @@ void * mymalloc(size_t);
 void * myrealloc(void *, size_t, const char *);
 FILE * myfopen(const char *, const char *, size_t);
 int myfclose(FILE *);
-size_t mystrftime(struct context *, char *, size_t, const char *, const struct tm *, const char *, int);
+size_t mystrftime(const struct context *, char *, size_t, const char *, const struct tm *, const char *, int);
 int create_path(const char *);
 #endif /* _INCLUDE_MOTION_H */

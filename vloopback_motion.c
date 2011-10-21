@@ -251,4 +251,4 @@ int vid_putpipe (int dev, unsigned char *image, int size)
 {
     return v4l_putpipe(dev, image, size);
 }
-#endif /* !HAVE_LINUX_VIDEODEV_H && !WITHOUT_V4L && !BSD */
+#endif /* !WITHOUT_V4L && !BSD */
