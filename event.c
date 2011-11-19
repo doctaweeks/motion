@@ -158,9 +158,9 @@ static void event_sqlnewfile(struct context *cnt, int type  ATTRIBUTE_UNUSED,
                         MOTION_LOG(INF, TYPE_DB, NO_ERRNO, "%s: Re-Connection to Mysql database '%s' Succeed",
                                    cnt->conf.database_dbname);
                         if (mysql_query(cnt->database, sqlquery) != 0) {
-                            int error_code = mysql_errno(cnt->database);
+                            int error_my = mysql_errno(cnt->database);
                             MOTION_LOG(ERR, TYPE_DB, SHOW_ERRNO, "%s: after re-connection Mysql query failed %s error code %d",
-                                       mysql_error(cnt->database), error_code);
+                                       mysql_error(cnt->database), error_my);
                         }
                     }
                 }

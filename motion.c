@@ -932,8 +932,8 @@ static int motion_init(struct context *cnt)
                        cnt->conf.stream_port);
             cnt->finish = 1;
         } else {  
-            MOTION_LOG(NTC, TYPE_ALL, NO_ERRNO, "%s: Started motion-stream server in port %d", 
-                       cnt->conf.stream_port);
+            MOTION_LOG(NTC, TYPE_ALL, NO_ERRNO, "%s: Started motion-stream server in port %d auth %s", 
+                       cnt->conf.stream_port, cnt->conf.stream_auth_method ? "Enabled":"Disabled");
         }    
     }
 

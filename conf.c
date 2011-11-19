@@ -363,7 +363,7 @@ config_param config_params[] = {
     },
     {
     "netcam_url",
-    "# URL to use if you are using a network camera, size will be autodetected (incl http:// ftp:// or file:///)\n"
+    "# URL to use if you are using a network camera, size will be autodetected (incl http:// ftp:// mjpg:// or file:///)\n"
     "# Must be a URL that returns single jpeg pictures or a raw mjpeg stream. Default: Not defined",
     0,
     CONF_OFFSET(netcam_url),
@@ -606,7 +606,7 @@ config_param config_params[] = {
     },
     {
     "event_gap",
-    "# Event Gap is the seconds of no motion detection that triggers the end of an event\n"
+    "# Event Gap is the seconds of no motion detection that triggers the end of an event.\n"
     "# An event is defined as a series of motion images taken within a short timeframe.\n"
     "# Recommended value is 60 seconds (Default). The value -1 is allowed and disables\n"
     "# events causing all Motion to be written to one single movie file and no pre_capture.\n"
