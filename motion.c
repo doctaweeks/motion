@@ -1796,18 +1796,15 @@ static void *motion_loop(void *arg)
                 }
 
                 if (frame_count >= cnt->conf.minimum_motion_frames) {
+
                     cnt->current_image->flags |= (IMAGE_TRIGGER | IMAGE_SAVE);
                     cnt->detecting_motion = 1;
-#ifdef HAVE_FFMPEG
-                    if (cnt->ffmpeg_output || (cnt->conf.useextpipe && cnt->extpipe)) {
-#else
-                    if (cnt->conf.useextpipe && cnt->extpipe) {
-#endif
-                        /* Setup the postcap counter */
-                        cnt->postcap = cnt->conf.post_capture;
-                        MOTION_LOG(DBG, TYPE_ALL, NO_ERRNO, "%s: Setup post capture %d", 
-                                   cnt->postcap);
-                    }
+
+                    /* Setup the postcap counter */
+                    cnt->postcap = cnt->conf.post_capture;
+                    MOTION_LOG(DBG, TYPE_ALL, NO_ERRNO, "%s: Setup post capture %d", 
+                               cnt->postcap);
+
                     /* Mark all images in image_ring to be saved */
                     for (i = 0; i < cnt->imgs.image_ring_size; i++) 
                         cnt->imgs.image_ring[i].flags |= IMAGE_SAVE;
@@ -1838,6 +1835,8 @@ static void *motion_loop(void *arg)
                 /* No motion, doing postcap */
                 cnt->current_image->flags |= (IMAGE_POSTCAP | IMAGE_SAVE);
                 cnt->postcap--;
+                MOTION_LOG(DBG, TYPE_ALL, NO_ERRNO, "%s: post capture %d", 
+                           cnt->postcap);
             } else {
                 /* Done with postcap, so just have the image in the precap buffer */
                 cnt->current_image->flags |= IMAGE_PRECAP;

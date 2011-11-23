@@ -69,6 +69,7 @@ Bugfixes
    * Made micro-lightswitch optional (see lightwitch option in motion.conf)
    * Fixed help text for options event_gap and area_detect
    * Fixed motion.conf-dist , adding text according with config options.
+   * Fixed a bug in post_capture. It was missed under certain conditions.
 
 3.2.12 Summary of Changes
 
