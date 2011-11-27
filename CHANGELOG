@@ -42,6 +42,7 @@ Features
    * Improve detection of av_register_protocol() for ffmpeg (Angel Carpintero).
    * Added support for libjpeg-turbo 
      http://www.lavrsen.dk/foswiki/bin/view/Motion/FeatureRequest2010x04x14x082244 (Angel Carpintero)     
+   * Added new log type COR , to filter messages from CORE. (Angel Carpintero)
 
 Bugfixes
    * Avoid segfault detecting strerror_r() version GNU or SUSv3. (Angel Carpintero)

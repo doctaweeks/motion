@@ -1912,7 +1912,7 @@ static void *motion_loop(void *arg)
                     if (cnt->track.type)
                         cnt->moved = track_center(cnt, cnt->video_dev, 0, 0, 0);
 
-                    MOTION_LOG(DBG, TYPE_ALL, NO_ERRNO, "%s: End of event %d", 
+                    MOTION_LOG(NTC, TYPE_ALL, NO_ERRNO, "%s: End of event %d", 
                                cnt->event_nr);
 
                     cnt->makemovie = 0;
@@ -2461,7 +2461,7 @@ static void motion_startup(int daemonize, int argc, char *argv[])
         cnt_list[0]->log_level = cnt_list[0]->conf.log_level - 1; // Let's make syslog compatible
     }
 
-    set_log_level(cnt_list[0]->log_level);   
+    //set_log_level(cnt_list[0]->log_level);   
 
 #ifdef HAVE_SDL
      MOTION_LOG(NTC, TYPE_ALL, NO_ERRNO, "%s: Motion "VERSION" Started with SDL support");
@@ -2498,6 +2498,7 @@ static void motion_startup(int daemonize, int argc, char *argv[])
     MOTION_LOG(NTC, TYPE_ALL, NO_ERRNO, "%s: Using log type (%s) log level (%s)", 
                get_log_type_str(cnt_list[0]->log_type), get_log_level_str(cnt_list[0]->log_level));
 
+    set_log_level(cnt_list[0]->log_level);
     set_log_type(cnt_list[0]->log_type);
 
     initialize_chars();
@@ -2763,7 +2764,7 @@ int main (int argc, char **argv)
 
             if (((motion_threads_running == 0) && finish) || 
                 ((motion_threads_running == 0) && (threads_running == 0))) {
-                MOTION_LOG(DBG, TYPE_ALL, NO_ERRNO, "%s: DEBUG-1 threads_running %d motion_threads_running %d "
+                MOTION_LOG(ALL, TYPE_ALL, NO_ERRNO, "%s: DEBUG-1 threads_running %d motion_threads_running %d "
                            ", finish %d", threads_running, motion_threads_running, finish);                 
                 break;
             }    
@@ -2799,7 +2800,7 @@ int main (int argc, char **argv)
                 }
             }
 
-            MOTION_LOG(DBG, TYPE_ALL, NO_ERRNO, "%s: DEBUG-2 threads_running %d motion_threads_running %d finish %d", 
+            MOTION_LOG(ALL, TYPE_ALL, NO_ERRNO, "%s: DEBUG-2 threads_running %d motion_threads_running %d finish %d", 
                        threads_running, motion_threads_running, finish);
         }
         /* Reset end main loop flag */
@@ -3077,6 +3078,10 @@ int myfclose(FILE* fh)
 {
     int i = 0;
     int rval = fclose(fh);
+
+    if (rval != 0) 
+        MOTION_LOG(ERR, TYPE_ALL, SHOW_ERRNO, "%s: Error closing file");
+
     for (i = 0; i < MYBUFCOUNT; i++) {
         if (buffers[i].fh == fh) {
             buffers[i].fh = NULL;
