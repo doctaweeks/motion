@@ -2854,7 +2854,7 @@ int main (int argc, char **argv)
  */
 void * mymalloc(size_t nbytes)
 {
-    void *dummy = malloc(nbytes);
+    void *dummy = calloc(nbytes, 1);
  
     if (!dummy) {
         MOTION_LOG(EMG, TYPE_ALL, SHOW_ERRNO, "%s: Could not allocate %llu bytes of memory!", 
